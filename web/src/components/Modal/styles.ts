@@ -29,7 +29,6 @@ export const Container = styled.div`
   margin: 56px auto;
   border-radius: 3px;
   max-width: 600px;
-  padding: 8px;
   border-radius: 4px;
 `
 
@@ -48,9 +47,7 @@ export const ButtonClose = styled.button`
   font-size: 16px;
 `
 
-export const Body = styled.div`
-  padding: 8px 0;
-`
+export const Body = styled.div``
 
 export const Footer = styled.div`
   display: flex;

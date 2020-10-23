@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom'
 import { FiChevronRight, FiPlus } from 'react-icons/fi'
 import { Marker, Popup } from "react-leaflet";
 
@@ -8,13 +7,15 @@ import { FoundMapIcon, LostMapIcon } from '../../utlis/MapIcon'
 import MapContainer from '../../components/Map'
 import Sidebar from '../../components/Sidebar'
 
-import Modal, { ModalBody, ModalHeader, useModal } from '../../components/Modal'
+import Modal, { ModalBody, useModal } from '../../components/Modal'
 
 import Create from '../Create'
+import Detail from '../Detail'
 
 import {
   Container,
   MapContent,
+  Button,
   Menu,
   MenuWrapper,
   MenuItem,
@@ -27,12 +28,14 @@ type ActionProps = 'found' | 'lost';
 function Map() {
   const [action, setAction] = useState<ActionProps>('found')
 
-  const { isShowing, toggle } = useModal()
+  const { isShowing: isShowingCreate, toggle: toggleCreate } = useModal()
+  const { isShowing: isShowingDetail, toggle: toggleDetail } = useModal()
 
   const handleOnClickAdd = (action : ActionProps) => {
     setAction(action);
-    toggle();
+    toggleCreate();
   }
+
   return (
     <Container>
       <Sidebar />
@@ -44,9 +47,9 @@ function Map() {
           >
             <Popup closeButton={false} minWidth={240} maxWidth={240} className="map-popup found-pet">
               Encontrei um cachorrinho
-              <Link to="">
+              <Button onClick={toggleDetail}>
                 <FiChevronRight size={20} color="#fff" />
-              </Link>
+              </Button>
             </Popup>
           </Marker>
 
@@ -56,9 +59,9 @@ function Map() {
           >
             <Popup closeButton={false} minWidth={240} maxWidth={240} className="map-popup lost-pet">
               Milu está perdida
-              <Link to="">
+              <Button onClick={toggleDetail}>
                 <FiChevronRight size={20} color="#fff" />
-              </Link>
+              </Button>
             </Popup>
           </Marker>
         </MapContainer>
@@ -75,9 +78,15 @@ function Map() {
         </AddButton>
       </AddButtonWrapper>
 
-      <Modal {...{isShowing, toggle}}>
+      <Modal isShowing={isShowingCreate} toggle={toggleCreate}>
         <ModalBody>
-          <Create action={action} toggle={toggle} />
+          <Create action={action} toggle={toggleCreate} />
+        </ModalBody>
+      </Modal>
+
+      <Modal isShowing={isShowingDetail} toggle={toggleDetail}>
+        <ModalBody>
+          <Detail toggle={toggleDetail} />
         </ModalBody>
       </Modal>
     </Container>

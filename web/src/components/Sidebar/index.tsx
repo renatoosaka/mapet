@@ -9,7 +9,7 @@ import {
 function Sidebar() {
   return (
     <Container>
-      <Link to="/map">
+      <Link to="/pets">
         <Logo />
       </Link>
     </Container>
