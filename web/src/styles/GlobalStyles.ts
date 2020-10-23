@@ -22,9 +22,14 @@ export default createGlobalStyle`
   :root {
     --color-light-blue: #31C1E3;
     --color-light-blue-hover: #5CD9F7;
+    --color-label: #5B5B5B;
     --color-text: #333;
     --color-green: #00B828;
+    --color-green-light: #C6FFD2;
+    --color-green-hover: #4CD96A;
     --color-red: #D71313;
+    --color-red-light: #FDBABA;
+    --color-red-hover: #E16C6C;
     --color-background: #fafafa;
     --color-border: #ddd;
   }

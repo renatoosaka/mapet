@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom'
 import { FiChevronRight, FiPlus } from 'react-icons/fi'
 import { Marker, Popup } from "react-leaflet";
@@ -8,7 +8,9 @@ import { FoundMapIcon, LostMapIcon } from '../../utlis/MapIcon'
 import MapContainer from '../../components/Map'
 import Sidebar from '../../components/Sidebar'
 
-import Modal, { ModalBody, useModal } from '../../components/Modal'
+import Modal, { ModalBody, ModalHeader, useModal } from '../../components/Modal'
+
+import Create from '../Create'
 
 import {
   Container,
@@ -20,8 +22,17 @@ import {
   AddButtonWrapper
 } from './styles'
 
+type ActionProps = 'found' | 'lost';
+
 function Map() {
+  const [action, setAction] = useState<ActionProps>('found')
+
   const { isShowing, toggle } = useModal()
+
+  const handleOnClickAdd = (action : ActionProps) => {
+    setAction(action);
+    toggle();
+  }
   return (
     <Container>
       <Sidebar />
@@ -55,8 +66,8 @@ function Map() {
       <AddButtonWrapper>
         <Menu>
           <MenuWrapper>
-            <MenuItem className="lost-pet" onClick={toggle}>Perdi</MenuItem>
-            <MenuItem className="found-pet" onClick={toggle}>Encontrei</MenuItem>
+            <MenuItem className="lost-pet" onClick={() => handleOnClickAdd('lost')}>Perdi</MenuItem>
+            <MenuItem className="found-pet" onClick={() => handleOnClickAdd('found')}>Encontrei</MenuItem>
           </MenuWrapper>
         </Menu>
         <AddButton>
@@ -66,7 +77,7 @@ function Map() {
 
       <Modal {...{isShowing, toggle}}>
         <ModalBody>
-          teste
+          <Create action={action} toggle={toggle} />
         </ModalBody>
       </Modal>
     </Container>
