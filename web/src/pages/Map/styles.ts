@@ -114,7 +114,6 @@ export const AddButton = styled.div`
   &:hover {
     background-color: var(--color-light-blue-hover);
   }
-
 `
 
 export const AddButtonWrapper = styled.div`
