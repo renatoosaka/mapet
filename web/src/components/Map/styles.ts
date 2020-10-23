@@ -33,22 +33,28 @@ export const MapContainer = styled(Map)<MapProps>`
     align-items: center;
   }
 
-  .map-popup .leaflet-popup-content a {
+  .map-popup .leaflet-popup-content button {
+    margin-left: 8px;
+
+    border: none;
+    border-radius: 4px;
+
     width: 24px;
     height: 24px;
     box-shadow: 17.2868px 27.6589px 41.4884px rgba(23, 142, 166, 0.16);
-    border-radius: 4px;
 
     display: flex;
     justify-content: center;
     align-items: center;
+
+    cursor: pointer;
   }
 
-  .map-popup.found-pet .leaflet-popup-content a {
+  .map-popup.found-pet .leaflet-popup-content button {
     background-color: var(--color-green);
   }
 
-  .map-popup.lost-pet .leaflet-popup-content a {
+  .map-popup.lost-pet .leaflet-popup-content button {
     background-color: var(--color-red);
   }
 

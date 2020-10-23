@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-  margin: 0 8px;
+  padding: 16px;
 `
 
 export interface TypeProps {

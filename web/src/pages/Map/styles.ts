@@ -15,6 +15,8 @@ export const MapContent = styled.div`
   height: 100%;
 `
 
+export const Button = styled.button``
+
 export const Menu = styled.div`
   position: fixed;
   right: 32px;
