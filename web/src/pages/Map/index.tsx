@@ -8,6 +8,8 @@ import { FoundMapIcon, LostMapIcon } from '../../utlis/MapIcon'
 import MapContainer from '../../components/Map'
 import Sidebar from '../../components/Sidebar'
 
+import Modal, { ModalBody, useModal } from '../../components/Modal'
+
 import {
   Container,
   MapContent,
@@ -19,6 +21,7 @@ import {
 } from './styles'
 
 function Map() {
+  const { isShowing, toggle } = useModal()
   return (
     <Container>
       <Sidebar />
@@ -52,14 +55,20 @@ function Map() {
       <AddButtonWrapper>
         <Menu>
           <MenuWrapper>
-            <MenuItem className="lost-pet">Perdi</MenuItem>
-            <MenuItem className="found-pet">Encontrei</MenuItem>
+            <MenuItem className="lost-pet" onClick={toggle}>Perdi</MenuItem>
+            <MenuItem className="found-pet" onClick={toggle}>Encontrei</MenuItem>
           </MenuWrapper>
         </Menu>
         <AddButton>
           <FiPlus />
         </AddButton>
       </AddButtonWrapper>
+
+      <Modal {...{isShowing, toggle}}>
+        <ModalBody>
+          teste
+        </ModalBody>
+      </Modal>
     </Container>
   )
 }
