@@ -1,0 +1,51 @@
+{
+  "name": "@mapet/backend",
+  "version": "1.0.0",
+  "description": "Backend for something magic",
+  "main": "src/server.ts",
+  "author": "Renato Hideki Osaka <oi@renatohidekiosaka.com.br>",
+  "license": "GPLv3",
+  "private": true,
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development ts-node-dev -r tsconfig-paths/register --respawn --transpile-only --ignore-watch node_modules --no-notify src/server.ts",
+    "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js"
+  },
+  "dependencies": {
+    "cloudinary": "^1.23.0",
+    "cors": "^2.8.5",
+    "date-fns": "^2.16.1",
+    "express": "^4.17.1",
+    "express-async-errors": "^3.1.1",
+    "multer": "^1.4.2",
+    "reflect-metadata": "^0.1.13",
+    "sharp": "^0.26.2",
+    "sqlite3": "^5.0.0",
+    "typeorm": "^0.2.28",
+    "yup": "^0.29.3"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.8",
+    "@types/date-fns": "^2.6.0",
+    "@types/dotenv": "^8.2.0",
+    "@types/express": "^4.17.8",
+    "@types/multer": "^1.4.4",
+    "@types/sharp": "^0.26.0",
+    "@types/yup": "^0.29.8",
+    "@typescript-eslint/eslint-plugin": "^4.5.0",
+    "@typescript-eslint/parser": "^4.5.0",
+    "cross-env": "^7.0.2",
+    "dotenv": "^8.2.0",
+    "eslint": "^7.11.0",
+    "eslint-config-prettier": "^6.14.0",
+    "eslint-config-standard": "^15.0.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.2",
+    "prettier": "^2.1.2",
+    "ts-node-dev": "^1.0.0",
+    "tsconfig-paths": "^3.9.0",
+    "typescript": "^4.0.3"
+  }
+}
