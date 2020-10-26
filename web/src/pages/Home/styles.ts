@@ -31,7 +31,7 @@ export const Wrapper = styled.div`
   max-width: 1200px;
 
   height: 100%;
-  max-height: 800px;
+  max-height: calc(100vh - 80px);
 
   display: flex;
   align-items: flex-start;
