@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FiChevronRight, FiPlus } from 'react-icons/fi'
 import { Marker, Popup } from "react-leaflet";
 
@@ -11,6 +11,8 @@ import Modal, { ModalBody, useModal } from '../../components/Modal'
 
 import Create from '../Create'
 import Detail from '../Detail'
+
+import { useMap } from '../../contexts/MapContext'
 
 import {
   Container,
@@ -26,10 +28,16 @@ import {
 type ActionProps = 'found' | 'lost';
 
 function Map() {
+  const { fetchtPets, pets } = useMap()
+
   const [action, setAction] = useState<ActionProps>('found')
 
   const { isShowing: isShowingCreate, toggle: toggleCreate } = useModal()
   const { isShowing: isShowingDetail, toggle: toggleDetail } = useModal()
+
+  useEffect(() => {
+    fetchtPets()
+  }, [])
 
   const handleOnClickAdd = (action : ActionProps) => {
     setAction(action);
@@ -41,29 +49,19 @@ function Map() {
       <Sidebar />
       <MapContent>
         <MapContainer>
-          <Marker
-            icon={FoundMapIcon}
-            position={[-22.227405, -49.953591]}
-          >
-            <Popup closeButton={false} minWidth={240} maxWidth={240} className="map-popup found-pet">
-              Encontrei um cachorrinho
-              <Button onClick={toggleDetail}>
-                <FiChevronRight size={20} color="#fff" />
-              </Button>
-            </Popup>
-          </Marker>
-
-          <Marker
-            icon={LostMapIcon}
-            position={[-22.224672, -49.958012]}
-          >
-            <Popup closeButton={false} minWidth={240} maxWidth={240} className="map-popup lost-pet">
-              Milu está perdida
-              <Button onClick={toggleDetail}>
-                <FiChevronRight size={20} color="#fff" />
-              </Button>
-            </Popup>
-          </Marker>
+          {pets.map(pet => (
+            <Marker
+              icon={pet.action_type === 'F' ? FoundMapIcon : LostMapIcon}
+              position={[pet.latitude, pet.longitude]}
+            >
+              <Popup closeButton={false} minWidth={240} maxWidth={240} className={`map-popup ${pet.action_type === 'F' ? 'found-pet' : 'lost-pet' }`}>
+                {pet.action_type === 'F' ? `Encontrei um cachorrinho` : `${pet.pet_name} está perdido(a)`}
+                <Button onClick={toggleDetail}>
+                  <FiChevronRight size={20} color="#fff" />
+                </Button>
+              </Popup>
+            </Marker>
+          ))}
         </MapContainer>
       </MapContent>
       <AddButtonWrapper>
