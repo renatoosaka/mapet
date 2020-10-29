@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { IMaskInput } from 'react-imask'
 
 export const Container = styled.div`
   padding: 16px;
@@ -24,6 +25,8 @@ export const Header = styled.div`
     }
   }
 `
+
+export const Form = styled.form``
 
 export const Title = styled.h3<TypeProps>`
   font-size: 24px;
@@ -110,6 +113,21 @@ export const Input = styled.input`
   color: var(--color-text);
   font-size: 16px;
 `
+export const InputMask = styled(IMaskInput)`
+  display: block;
+  width: 100%;
+
+  padding: 8px;
+  margin-bottom: 8px;
+
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+
+  background-color: var(--color-background);
+
+  color: var(--color-text);
+  font-size: 16px;
+`
 
 export const Textarea = styled.textarea.attrs({ rows: 5 })`
   display: block;
@@ -127,6 +145,21 @@ export const Textarea = styled.textarea.attrs({ rows: 5 })`
   font-size: 16px;
 
   resize: vertical;
+`
+
+export const Error = styled.span`
+  display: block;
+
+  font-size: 12px;
+  color: var(--color-red);
+
+  background-color: var(--color-red-light);
+
+  border-radius: 4px;
+
+  padding: 8px;
+
+  margin: 4px 0;
 `
 
 export const Button = styled.button<TypeProps>`
@@ -155,10 +188,66 @@ export const Button = styled.button<TypeProps>`
 `
 
 export const PhotoContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+
   margin-bottom: 8px;
+
+  input[type=file] {
+    display: none;
+  }
 `
 
-export const PhotoButton = styled.div<TypeProps>`
+export const Photo = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 96px;
+  height: 96px;
+
+  position: relative;
+
+  border-radius: 8px;
+
+  background-color: var(--color-background);
+
+  margin-right: 8px;
+`
+
+export const PhotoImage = styled.img`
+  object-fit: cover;
+  border-radius: 8px;
+  width: 100%;
+  height: 100%;
+`
+
+export const PhotoDelete = styled.div`
+  position: absolute;
+  top: 1px;
+  right: 1px;
+
+  background: #FFFFFF;
+  border-radius: 0px 8px;
+
+  width: 24px;
+  height: 24px;
+
+  font-size: 16px;
+  color: var(--color-text);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+
+  &:hover {
+    color: var(--color-red);
+  }
+`
+
+export const PhotoButton = styled.label<TypeProps>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -170,7 +259,7 @@ export const PhotoButton = styled.div<TypeProps>`
   font-size: 20px;
 
   border: 1px dashed ${props => props.action === 'found' ? 'var(--color-green)' : 'var(--color-red)'};
-  border-radius: 4px;
+  border-radius: 8px;
 
   cursor: pointer;
 `

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FiChevronRight, FiPlus } from 'react-icons/fi'
-import { Marker, Popup } from "react-leaflet";
+import { Marker, Popup } from "react-leaflet"
 
 import { FoundMapIcon, LostMapIcon } from '../../utlis/MapIcon'
 

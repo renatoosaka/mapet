@@ -8,7 +8,7 @@ export default createGlobalStyle`
   }
 
   body {
-    color: #fff;
+    color: #333;
     background-color: #ebf2f5;
   }
 
@@ -32,5 +32,6 @@ export default createGlobalStyle`
     --color-red-hover: #E16C6C;
     --color-background: #fafafa;
     --color-border: #ddd;
+    --color-white: #fff;
   }
 `
