@@ -1,4 +1,4 @@
-import React, { useState, createContext, useContext } from 'react'
+import React, { useState, useEffect, useContext, createContext } from 'react'
 import { toast } from 'react-toastify'
 
 import Api from '../services/Api'
@@ -37,8 +37,15 @@ export interface PetFormValues {
   action_type: string;
 }
 
+interface MapCoordinates {
+  latitude: number;
+  longitude: number;
+}
+
 interface MapContextProps {
+  gelocationEnabled: boolean;
   loading: boolean;
+  coordinates: MapCoordinates;
   pets: PetProps[];
   pet: PetProps;
   fetchtPets: () => Promise<void>;
@@ -49,9 +56,29 @@ interface MapContextProps {
 const MapContext = createContext<MapContextProps>({} as MapContextProps)
 
 export const MapProvider: React.FC = ({ children }) => {
+  const [gelocationEnabled, setGelocationEnabled] = useState(true)
   const [loading, setLoading] = useState(false)
+  const [coordinates, setCoordinates] = useState<MapCoordinates>({ latitude: 0, longitude: 0 })
   const [pets, setPets] = useState<Array<PetProps>>([])
   const [pet, setPet] = useState<PetProps>({} as PetProps)
+
+  useEffect(() => {
+    try {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(({ coords: { latitude, longitude } }) => {
+          setCoordinates({ latitude, longitude })
+          setGelocationEnabled(true)
+        }, ({ code, message }) => {
+          console.log(code, message)
+          setGelocationEnabled(false)
+        })
+      } else {
+        setGelocationEnabled(false)
+      }
+    } catch {
+      setGelocationEnabled(false)
+    }
+  }, [])
 
   const fetchtPets = async (): Promise<void> => {
     setLoading(true)
@@ -157,7 +184,9 @@ export const MapProvider: React.FC = ({ children }) => {
 
   return (
     <MapContext.Provider value={{
+      gelocationEnabled,
       loading,
+      coordinates,
       pets,
       pet,
       fetchtPets,
