@@ -29,7 +29,7 @@ import {
 type ActionProps = 'found' | 'lost';
 
 function Map() {
-  const { fetchtPets, pets } = useMap()
+  const { fetchtPets, pets, coordinates, gelocationEnabled } = useMap()
 
   const [action, setAction] = useState<ActionProps>('found')
   const [id, setID] = useState('')
@@ -72,29 +72,33 @@ function Map() {
           ))}
         </MapContainer>
       </MapContent>
-      <AddButtonWrapper>
-        <Menu>
-          <MenuWrapper>
-            <MenuItem className="lost-pet" onClick={() => handleOnClickAdd('lost')}>Perdi</MenuItem>
-            <MenuItem className="found-pet" onClick={() => handleOnClickAdd('found')}>Encontrei</MenuItem>
-          </MenuWrapper>
-        </Menu>
-        <AddButton>
-          <FiPlus />
-        </AddButton>
-      </AddButtonWrapper>
+      {coordinates.latitude !== 0 && gelocationEnabled && (
+        <>
+          <AddButtonWrapper>
+            <Menu>
+              <MenuWrapper>
+                <MenuItem className="lost-pet" onClick={() => handleOnClickAdd('lost')}>Perdi</MenuItem>
+                <MenuItem className="found-pet" onClick={() => handleOnClickAdd('found')}>Encontrei</MenuItem>
+              </MenuWrapper>
+            </Menu>
+            <AddButton>
+              <FiPlus />
+            </AddButton>
+          </AddButtonWrapper>
 
-      <Modal isShowing={isShowingCreate} toggle={toggleCreate}>
-        <ModalBody>
-          <Create action={action} toggle={toggleCreate} />
-        </ModalBody>
-      </Modal>
+          <Modal isShowing={isShowingCreate} toggle={toggleCreate}>
+            <ModalBody>
+              <Create action={action} toggle={toggleCreate} />
+            </ModalBody>
+          </Modal>
 
-      <Modal isShowing={isShowingDetail} toggle={toggleDetail}>
-        <ModalBody>
-          <Detail id={id} toggle={toggleDetail} />
-        </ModalBody>
-      </Modal>
+          <Modal isShowing={isShowingDetail} toggle={toggleDetail}>
+            <ModalBody>
+              <Detail id={id} toggle={toggleDetail} />
+            </ModalBody>
+          </Modal>
+        </>
+      )}
     </Container>
   )
 }
