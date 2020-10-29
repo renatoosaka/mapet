@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FiChevronRight, FiPlus } from 'react-icons/fi'
 import { Marker, Popup } from "react-leaflet"
 
+import petTitle from '../../utlis/Title'
 import { FoundMapIcon, LostMapIcon } from '../../utlis/MapIcon'
 
 import MapContainer from '../../components/Map'
@@ -31,6 +32,7 @@ function Map() {
   const { fetchtPets, pets } = useMap()
 
   const [action, setAction] = useState<ActionProps>('found')
+  const [id, setID] = useState('')
 
   const { isShowing: isShowingCreate, toggle: toggleCreate } = useModal()
   const { isShowing: isShowingDetail, toggle: toggleDetail } = useModal()
@@ -39,9 +41,14 @@ function Map() {
     fetchtPets()
   }, [])
 
-  const handleOnClickAdd = (action : ActionProps) => {
-    setAction(action);
-    toggleCreate();
+  const handleOnClickAdd = (action: ActionProps) => {
+    setAction(action)
+    toggleCreate()
+  }
+
+  const handleOnClickDetail = (id: string) => {
+    setID(id)
+    toggleDetail()
   }
 
   return (
@@ -51,12 +58,13 @@ function Map() {
         <MapContainer>
           {pets.map(pet => (
             <Marker
+              key={pet.id}
               icon={pet.action_type === 'F' ? FoundMapIcon : LostMapIcon}
               position={[pet.latitude, pet.longitude]}
             >
               <Popup closeButton={false} minWidth={240} maxWidth={240} className={`map-popup ${pet.action_type === 'F' ? 'found-pet' : 'lost-pet' }`}>
-                {pet.action_type === 'F' ? `Encontrei um cachorrinho` : `${pet.pet_name} está perdido(a)`}
-                <Button onClick={toggleDetail}>
+                {pet.action_type === 'F' ? petTitle(pet.pet_type) : `${pet.pet_name} está perdido(a)`}
+                <Button onClick={() => handleOnClickDetail(pet.id.toString())}>
                   <FiChevronRight size={20} color="#fff" />
                 </Button>
               </Popup>
@@ -84,7 +92,7 @@ function Map() {
 
       <Modal isShowing={isShowingDetail} toggle={toggleDetail}>
         <ModalBody>
-          <Detail toggle={toggleDetail} />
+          <Detail id={id} toggle={toggleDetail} />
         </ModalBody>
       </Modal>
     </Container>
