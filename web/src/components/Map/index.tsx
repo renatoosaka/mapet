@@ -12,10 +12,11 @@ export interface MapCoordinates {
   longitude: number;
 }
 interface MapProps {
+  mapCenter?: MapCoordinates;
   onMapClick?: (coordinates: MapCoordinates) => void;
 }
 
-const Map: React.FC<MapProps> = ({ onMapClick, children }) => {
+const Map: React.FC<MapProps> = ({ mapCenter, onMapClick, children }) => {
 
   function handleMapClick(event: LeafletMouseEvent){
     const { lat, lng } = event.latlng;
@@ -29,7 +30,7 @@ const Map: React.FC<MapProps> = ({ onMapClick, children }) => {
   return (
     <Container>
       <MapContainer
-        center={[ -22.2308817, -49.9557046 ]}
+        center={mapCenter ? [mapCenter.latitude, mapCenter.longitude] : [ -22.2308817, -49.9557046 ]}
         zoom={15}
         onclick={handleMapClick}
       >

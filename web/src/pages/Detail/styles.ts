@@ -5,12 +5,19 @@ export interface TypeProps {
 }
 
 export const Container = styled.div`
-  border-radius: 8px 8px 0 0;
+  border-radius: 4px 4px 0 0;
 `
 
 export const Header = styled.div`
   position: relative;
-  border-radius: 8px 8px 0 0;
+  border-radius: 4px 4px 0 0;
+
+  .photo-wall {
+    border-radius: 4px 4px 0 0;
+
+    width: 100%;
+    height: 320px;
+  }
 `
 
 export const CloseButton = styled.button`
@@ -42,11 +49,23 @@ export const PhotoWall = styled.img`
   height: 320px;
   object-fit: cover;
 
-  border-radius: 8px 8px 0 0;
+  border-radius: 4px 4px 0 0;
 `
 
 export const PhotoSlider = styled.div`
   margin: 8px 16px;
+  display: flex;
+
+  .photo-slider {
+    width: 94px;
+    height: 94px;
+
+    border-radius: 4px;
+
+    &:not(:last-child) {
+      margin-right: 8px;
+    }
+  }
 `
 
 export const Photo = styled.img`
@@ -74,6 +93,67 @@ export const Photo = styled.img`
 
 export const Content = styled.div`
   padding: 16px;
+
+  .pet-name {
+    width: 70%;
+    height: 28px;
+
+    margin-bottom: 16px;
+  }
+
+  .pet-detail {
+    height: 28px;
+    margin-bottom: 4px;
+
+    &:nth-child(2) {
+      width: 90%;
+    }
+
+    &:nth-child(3) {
+      width: 80%;
+    }
+
+    &:nth-child(4) {
+      width: 40%;
+    }
+
+    &:nth-child(5) {
+      width: 60%;
+      margin-bottom: 16px;
+    }
+  }
+
+  .pet-map {
+    width: 100%;
+    height: 240px;
+
+    border-radius: 4px;
+
+    margin-bottom: 16px;
+  }
+
+  .pet-reward {
+    width: 40%;
+    height: 28px;
+
+    margin-bottom: 16px;
+  }
+
+  .pet-contact {
+    width: 80%;
+    height: 28px;
+
+    margin-bottom: 16px;
+  }
+
+  .pet-button {
+    width: 100%;
+    height: 48px;
+
+    border-radius: 4px;
+
+    margin-bottom: 16px;
+  }
 `
 
 export const Title = styled.h3<TypeProps>`
@@ -132,7 +212,9 @@ export const MapDescription = styled.p<TypeProps>`
   font-size: 16px;
 `
 
-export const Button = styled.button`
+export const Button = styled.a`
+  text-decoration: none;
+
   border: none;
   border-radius: 4px;
 
