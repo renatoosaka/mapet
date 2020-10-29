@@ -33,5 +33,6 @@ export default createGlobalStyle`
     --color-background: #fafafa;
     --color-border: #ddd;
     --color-white: #fff;
+    --color-message-map: #81afbb;
   }
 `

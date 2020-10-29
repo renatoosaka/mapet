@@ -1,9 +1,16 @@
-import { LeafletMouseEvent } from 'leaflet';
 import React from 'react';
+import { LeafletMouseEvent } from 'leaflet';
 import { TileLayer } from "react-leaflet";
+
+import { useMap } from '../../contexts/MapContext'
+
+import MapLoadingSVG from '../../assets/map-loading.svg'
+import LocationDisabledSVG from '../../assets/location-disabled.svg'
 
 import {
   Container,
+  Image,
+  Message,
   MapContainer
 } from './styles'
 
@@ -17,8 +24,9 @@ interface MapProps {
 }
 
 const Map: React.FC<MapProps> = ({ mapCenter, onMapClick, children }) => {
+  const { gelocationEnabled, coordinates } = useMap()
 
-  function handleMapClick(event: LeafletMouseEvent){
+  const handleMapClick = (event: LeafletMouseEvent) => {
     const { lat, lng } = event.latlng;
 
     onMapClick && onMapClick({
@@ -27,10 +35,31 @@ const Map: React.FC<MapProps> = ({ mapCenter, onMapClick, children }) => {
     })
   }
 
+  if (coordinates.latitude === 0 && gelocationEnabled) {
+    return (
+      <Container>
+        <Image src={MapLoadingSVG} />
+        <Message>Carregando Mapa</Message>
+      </Container>
+    )
+  }
+
+  if (!gelocationEnabled) {
+    return (
+      <Container>
+        <Image src={LocationDisabledSVG} />
+        <Message style={{ color: 'var(--color-red)', fontWeight: 800 }}>Ouch!!</Message>
+        <Message style={{ margin: 0, fontSize: 21 }}>Precisamos ter acesso a sua localização</Message>
+        <Message style={{ margin: 0, fontSize: 21 }}>para conseguirmos lhe ajudar a encontrar</Message>
+        <Message style={{ margin: 0, fontSize: 21 }}>o seu amiguinho</Message>
+      </Container>
+    )
+  }
+
   return (
     <Container>
       <MapContainer
-        center={mapCenter ? [mapCenter.latitude, mapCenter.longitude] : [ -22.2308817, -49.9557046 ]}
+        center={mapCenter ? [mapCenter.latitude, mapCenter.longitude] : [ coordinates.latitude, coordinates.longitude ]}
         zoom={15}
         onclick={handleMapClick}
       >

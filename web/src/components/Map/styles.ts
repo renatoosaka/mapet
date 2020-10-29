@@ -7,9 +7,23 @@ export const Container = styled.div`
   width: 100%;
   height: 100%;
 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
   .leaflet-container {
     z-index: 5;
   }
+`
+export const Image = styled.img`
+  width:30%;
+`
+
+export const Message = styled.h2`
+  font-weight: 600;
+  margin: 32px 0;
+  color: var(--color-message-map);
 `
 
 export const MapContainer = styled(Map)<MapProps>`
