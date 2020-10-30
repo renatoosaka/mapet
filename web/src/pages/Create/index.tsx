@@ -6,6 +6,7 @@ import * as yup from 'yup'
 
 import Map, { MapCoordinates } from '../../components/Map'
 import PetButton from '../../components/PetButton'
+import LoadingSpinner from '../../components/LoadingSpinner'
 
 import { FoundMapIcon, LostMapIcon } from '../../utlis/MapIcon'
 
@@ -69,7 +70,7 @@ const Create: React.FC<CreateProps> = ({ action, toggle }) => {
     resolver: yupResolver(schema)
   })
 
-  const { createPet } = useMap()
+  const { createPet, loading } = useMap()
 
   useEffect(() =>  {
     register('latitude')
@@ -133,7 +134,7 @@ const Create: React.FC<CreateProps> = ({ action, toggle }) => {
   const onSubmit:SubmitHandler<PetFormValues> = async (values, e) => {
     e?.preventDefault()
 
-    if (createPet(values)) {
+    if (await createPet(values)) {
       toggle()
     }
   }
@@ -242,7 +243,15 @@ const Create: React.FC<CreateProps> = ({ action, toggle }) => {
             />
           </>
         )}
-        <Button {...{action}} type="submit">Confirmar</Button>
+        <Button {...{action}} type="submit">
+          {loading && (
+            <>
+              <LoadingSpinner />
+              Aguarde
+            </>
+          )}
+          {!loading && 'Confirmar'}
+        </Button>
       </Form>
     </Container>
   )

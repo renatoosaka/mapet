@@ -85,7 +85,7 @@ export const MapProvider: React.FC = ({ children }) => {
   const fetchtPets = async (): Promise<void> => {
     setLoading(true)
     try {
-      const { data } = await Api.get<Array<PetProps>>('/pets')
+      const { data } = await Api.get<Array<PetProps>>(`/pets?latitude=${coordinates.latitude}&longitude=${coordinates.longitude}`)
 
       setPets(data)
     } catch(error) {
@@ -140,6 +140,7 @@ export const MapProvider: React.FC = ({ children }) => {
   }
 
   const createPet = async (values: PetFormValues): Promise<boolean> => {
+    setLoading(true)
     try {
       const data = new FormData();
 
@@ -182,6 +183,8 @@ export const MapProvider: React.FC = ({ children }) => {
       });
 
       return false
+    } finally {
+      setLoading(false)
     }
   }
 
