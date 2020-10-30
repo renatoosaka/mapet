@@ -46,6 +46,10 @@ function Map() {
   const { isShowing: isShowingDetail, toggle: toggleDetail } = useModal()
 
   useEffect(() => {
+    document.addEventListener("touchstart", function() {},false);
+  }, [])
+
+  useEffect(() => {
     if (!isShowingDetail) {
       history.replace({
         pathname: '/pets'
