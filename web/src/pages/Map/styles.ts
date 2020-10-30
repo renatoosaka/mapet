@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import Devices from '../../styles/Devices'
 
 export const Container = styled.div`
   position: relative;
@@ -13,6 +14,14 @@ export const MapContent = styled.div`
   margin-left: 100px;
   width: calc(100% - 100px);
   height: 100%;
+
+  @media only screen and (${Devices.tablet}) {
+    margin-left: 0;
+    margin-top: 60px;
+
+    width: 100%;
+    height: calc(100vh - 60px);
+  }
 `
 
 export const Button = styled.button``
@@ -29,6 +38,10 @@ export const Menu = styled.div`
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 
   display: none;
+
+  @media only screen and (${Devices.tablet}) {
+    right: 16px;
+  }
 `
 
 export const MenuWrapper = styled.div`
@@ -138,5 +151,10 @@ export const AddButtonWrapper = styled.div`
       opacity: 1;
       display: block;
     }
+  }
+
+  @media only screen and (${Devices.tablet}) {
+    right: 16px;
+    bottom: 16px;
   }
 `
