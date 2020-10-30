@@ -182,6 +182,10 @@ export const Button = styled.button<TypeProps>`
 
   transition: all 0.2s ease-in-out;
 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   &:hover {
     background-color: ${props => props.action === 'found' ? 'var(--color-green-hover)' : 'var(--color-red-hover)'};
   }

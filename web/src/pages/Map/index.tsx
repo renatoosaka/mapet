@@ -73,8 +73,10 @@ function Map() {
   }, [petParam])
 
   useEffect(() => {
-    fetchtPets()
-  }, [])
+    if (coordinates.latitude !== 0 && gelocationEnabled) {
+      fetchtPets()
+    }
+  }, [coordinates, gelocationEnabled])
 
   const handleOnClickAdd = (action: ActionProps) => {
     setAction(action)
