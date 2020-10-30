@@ -2,16 +2,19 @@ import React, { useEffect, useState } from 'react'
 import { FiX } from 'react-icons/fi'
 import { FaWhatsapp } from 'react-icons/fa'
 import { Marker } from "react-leaflet"
+import { useHistory } from 'react-router-dom'
 
 import Map from '../../components/Map'
 
 import petTitle from '../../utlis/Title'
+import slugfy from '../../utlis/Slug'
 
 import { FoundMapIcon, LostMapIcon } from '../../utlis/MapIcon'
 
 import { useMap } from '../../contexts/MapContext'
 
 import Shimmer from './shimmer'
+import NotFound from './notFound'
 
 import {
   Container,
@@ -35,26 +38,48 @@ interface DetailProps {
 }
 
 const Detail: React.FC<DetailProps> = ({ id, toggle }) => {
+  const history = useHistory()
+
   const [activeImageIndex, setActiveImageIndex] = useState(0)
   const [action, setAction] = useState<'lost' | 'found'>('lost')
 
-  const { fetchtPet, pet } = useMap()
+  const { fetchtPet, pet, petNotFound } = useMap()
 
   useEffect(() => {
     fetchtPet(id)
   }, [id])
 
   useEffect(() => {
-    if (pet.action_type) {
-      setAction(pet.action_type === 'F' ? 'found' : 'lost')
+    if(pet) {
+      if (pet.action_type) {
+        setAction(pet.action_type === 'F' ? 'found' : 'lost')
+      }
+
+      if (pet.id) {
+        let description = ''
+
+        if (pet.action_type === 'F') {
+          description = petTitle(pet.pet_type)
+        } else {
+          description = pet.pet_name
+        }
+
+        history.replace({
+          pathname: `/pets/${slugfy(description)}-${pet.id}`
+        })
+      }
     }
   }, [pet])
 
-  if (!Object.keys(pet).length) {
+  if (!pet && !petNotFound) {
     return <Shimmer toggle={toggle} />
   }
 
-  return <Container>
+  if (!pet && petNotFound) {
+    return <NotFound toggle={toggle} />
+  }
+
+  return pet && <Container>
     <Header>
       <CloseButton onClick={toggle}>
         <FiX />

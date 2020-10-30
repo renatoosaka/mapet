@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FiChevronRight, FiPlus } from 'react-icons/fi'
 import { Marker, Popup } from "react-leaflet"
+import { useHistory, useParams } from 'react-router-dom'
 
 import petTitle from '../../utlis/Title'
 import { FoundMapIcon, LostMapIcon } from '../../utlis/MapIcon'
@@ -28,7 +29,14 @@ import {
 
 type ActionProps = 'found' | 'lost';
 
+interface MapURLParams {
+  pet: string;
+}
+
 function Map() {
+  const history = useHistory()
+  const { pet: petParam } = useParams<MapURLParams>()
+
   const { fetchtPets, pets, coordinates, gelocationEnabled } = useMap()
 
   const [action, setAction] = useState<ActionProps>('found')
@@ -36,6 +44,29 @@ function Map() {
 
   const { isShowing: isShowingCreate, toggle: toggleCreate } = useModal()
   const { isShowing: isShowingDetail, toggle: toggleDetail } = useModal()
+
+  useEffect(() => {
+    if (!isShowingDetail) {
+      history.replace({
+        pathname: '/pets'
+      })
+    }
+  }, [isShowingDetail])
+
+  useEffect(() => {
+    if (petParam) {
+      const params = petParam.split('-')
+
+      const id = params[params.length -1]
+
+      if (id && parseInt(id) && !isShowingDetail) {
+        setID(id)
+        toggleDetail()
+      }
+
+      console.log(id)
+    }
+  }, [petParam])
 
   useEffect(() => {
     fetchtPets()
