@@ -11,9 +11,22 @@ import Pet from '../models/Pet'
 
 export default {
   async index (request: Request, response: Response) {
+    const { latitude, longitude } = request.query
+
+    const haversine = `(6371 * acos(cos(radians(${latitude}))
+      * cos(radians(latitude))
+      * cos(radians(longitude)
+      - radians(${longitude}))
+      + sin(radians(${latitude}))
+      * sin(radians(latitude))))`
+
     const repository = getRepository(Pet)
 
-    const pets = await repository.find({ relations: ['images'] })
+    const pets = await repository
+      .createQueryBuilder('pets')
+      .leftJoinAndSelect('pets.images', 'image')
+      .where(`${haversine} <= 10`)
+      .getMany()
 
     return response.status(200).json(petView.renderMany(pets))
   },
@@ -69,7 +82,7 @@ export default {
       when,
       contact_name,
       phone_number,
-      reward,
+      reward: action_type === 'F' ? 0.00 : (reward || 0.00),
       founded,
       action_type,
       images
