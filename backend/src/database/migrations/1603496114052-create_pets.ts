@@ -16,14 +16,16 @@ export class createPets1603496114052 implements MigrationInterface {
         {
           name: 'latitude',
           type: 'decimal',
-          scale: 10,
-          precision: 2
+          unsigned: false,
+          scale: 13,
+          precision: 15
         },
         {
           name: 'longitude',
           type: 'decimal',
-          scale: 10,
-          precision: 2
+          unsigned: false,
+          scale: 13,
+          precision: 15
         },
         {
           name: 'pet_name',
@@ -43,17 +45,20 @@ export class createPets1603496114052 implements MigrationInterface {
         },
         {
           name: 'contact_name',
-          type: 'varchar'
+          type: 'varchar',
+          isNullable: true
         },
         {
           name: 'phone_number',
-          type: 'varchar'
+          type: 'varchar',
+          isNullable: true
         },
         {
           name: 'reward',
           type: 'decimal',
-          scale: 10,
-          precision: 2
+          scale: 2,
+          precision: 10,
+          isNullable: true
         },
         {
           name: 'founded',
@@ -66,11 +71,13 @@ export class createPets1603496114052 implements MigrationInterface {
         },
         {
           name: 'created_at',
-          type: 'datetime'
+          type: 'datetime',
+          default: 'CURRENT_TIMESTAMP'
         },
         {
           name: 'updated_at',
-          type: 'datetime'
+          type: 'datetime',
+          default: 'CURRENT_TIMESTAMP'
         }
       ]
     }))

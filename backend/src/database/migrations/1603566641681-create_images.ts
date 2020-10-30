@@ -19,15 +19,18 @@ export class createImages1603566641681 implements MigrationInterface {
         },
         {
           name: 'pet_id',
-          type: 'integer'
+          type: 'integer',
+          unsigned: true
         },
         {
           name: 'created_at',
-          type: 'datetime'
+          type: 'datetime',
+          default: 'CURRENT_TIMESTAMP'
         },
         {
           name: 'updated_at',
-          type: 'datetime'
+          type: 'datetime',
+          default: 'CURRENT_TIMESTAMP'
         }
       ],
       foreignKeys: [
