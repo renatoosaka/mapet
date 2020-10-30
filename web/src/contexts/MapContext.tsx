@@ -46,8 +46,9 @@ interface MapContextProps {
   gelocationEnabled: boolean;
   loading: boolean;
   coordinates: MapCoordinates;
+  petNotFound: boolean;
   pets: PetProps[];
-  pet: PetProps;
+  pet: PetProps | null;
   fetchtPets: () => Promise<void>;
   fetchtPet: (id: string) => Promise<void>;
   createPet: (values: PetFormValues) => Promise<boolean>;
@@ -59,8 +60,9 @@ export const MapProvider: React.FC = ({ children }) => {
   const [gelocationEnabled, setGelocationEnabled] = useState(true)
   const [loading, setLoading] = useState(false)
   const [coordinates, setCoordinates] = useState<MapCoordinates>({ latitude: 0, longitude: 0 })
+  const [petNotFound, setPetNotFound] = useState(false)
   const [pets, setPets] = useState<Array<PetProps>>([])
-  const [pet, setPet] = useState<PetProps>({} as PetProps)
+  const [pet, setPet] = useState<PetProps | null>(null)
 
   useEffect(() => {
     try {
@@ -117,6 +119,7 @@ export const MapProvider: React.FC = ({ children }) => {
     } catch (error) {
       let message = ""
       if (error.response) {
+        setPetNotFound(error.response.status === 404)
         message = error.response.data.message || error.response.data.error;
       } else {
         message = error.message
@@ -187,6 +190,7 @@ export const MapProvider: React.FC = ({ children }) => {
       gelocationEnabled,
       loading,
       coordinates,
+      petNotFound,
       pets,
       pet,
       fetchtPets,

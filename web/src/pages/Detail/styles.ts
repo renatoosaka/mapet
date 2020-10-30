@@ -248,3 +248,7 @@ export const Button = styled.a`
     background-color: var(--color-green-hover);
   }
 `
+
+export const NotFoundImage = styled.img`
+  width: 50%;
+`

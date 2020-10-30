@@ -22,9 +22,13 @@ export default {
 
     const repository = getRepository(Pet)
 
-    const pet = await repository.findOneOrFail(id, {
+    const pet = await repository.findOne(id, {
       relations: ['images']
     })
+
+    if (!pet) {
+      return response.status(404).send()
+    }
 
     return response.status(200).json(petView.render(pet))
   },
