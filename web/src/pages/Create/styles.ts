@@ -88,6 +88,13 @@ export const DivisionLine = styled.hr`
   margin: 16px 0;
 `
 
+export const Help = styled.small`
+  width: 100%;
+
+  font-size: 12px;
+  color: var(--color-label);
+`
+
 export const Label = styled.label`
   display: block;
   width: 100%;

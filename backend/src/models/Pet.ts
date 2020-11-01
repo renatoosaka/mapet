@@ -28,6 +28,9 @@ export default class Pet {
   contact_name: string
 
   @Column()
+  email: string
+
+  @Column()
   phone_number: string
 
   @Column({ default: 0.00 })
