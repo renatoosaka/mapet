@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { LeafletMouseEvent } from 'leaflet';
 import { TileLayer } from "react-leaflet";
 
@@ -11,7 +11,10 @@ import {
   Container,
   Image,
   Message,
-  MapContainer
+  MapContainer,
+  FormContainer,
+  InputMask,
+  Button
 } from './styles'
 
 export interface MapCoordinates {
@@ -24,7 +27,9 @@ interface MapProps {
 }
 
 const Map: React.FC<MapProps> = ({ mapCenter, onMapClick, children }) => {
-  const { gelocationEnabled, coordinates } = useMap()
+  const [cep, setCep] = useState('')
+
+  const { gelocationEnabled, coordinates, getCoordinates } = useMap()
 
   const handleMapClick = (event: LeafletMouseEvent) => {
     const { lat, lng } = event.latlng;
@@ -33,6 +38,10 @@ const Map: React.FC<MapProps> = ({ mapCenter, onMapClick, children }) => {
       latitude: lat,
       longitude: lng
     })
+  }
+
+  const handleGetCoordinates = async () => {
+    await getCoordinates(cep)
   }
 
   if (coordinates.latitude === 0 && gelocationEnabled) {
@@ -49,11 +58,28 @@ const Map: React.FC<MapProps> = ({ mapCenter, onMapClick, children }) => {
       <Container>
         <Image src={LocationDisabledSVG} />
         <Message style={{ color: 'var(--color-red)', fontWeight: 800 }}>Ouch!!</Message>
-        <Message style={{ margin: 0, fontSize: 21 }}>Precisamos ter acesso a sua localização</Message>
-        <Message style={{ margin: 0, fontSize: 21 }}>para conseguirmos lhe ajudar a encontrar</Message>
-        <Message style={{ margin: 0, fontSize: 21 }}>o seu amiguinho</Message>
+        <Message style={{ margin: 0, fontSize: 18 }}>Não foi possível identificar sua localização</Message>
+        <Message style={{ margin: 0, fontSize: 18 }}>Por favor informe seu CEP para continuarmos</Message>
+        <FormContainer>
+          <InputMask
+            mask={'00000-000'}
+            placeholder='Informe o seu CEP'
+            onAccept={(value: string, _: any) => setCep(value)}
+            autoFocus />
+          <Button type="button" onClick={handleGetCoordinates}>Continuar</Button>
+        </FormContainer>
       </Container>
     )
+
+    // return (
+    //   <Container>
+    //     <Image src={LocationDisabledSVG} />
+    //     <Message style={{ color: 'var(--color-red)', fontWeight: 800 }}>Ouch!!</Message>
+    //     <Message style={{ margin: 0, fontSize: 21 }}>Precisamos ter acesso a sua localização</Message>
+    //     <Message style={{ margin: 0, fontSize: 21 }}>para conseguirmos lhe ajudar a encontrar</Message>
+    //     <Message style={{ margin: 0, fontSize: 21 }}>o seu amiguinho</Message>
+    //   </Container>
+    // )
   }
 
   return (
@@ -68,6 +94,7 @@ const Map: React.FC<MapProps> = ({ mapCenter, onMapClick, children }) => {
       </MapContainer>
     </Container>
   )
+
 }
 
 export default Map;

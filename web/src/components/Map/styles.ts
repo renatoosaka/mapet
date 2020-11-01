@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { IMaskInput } from 'react-imask'
 
 import { Map, MapProps } from "react-leaflet";
 
@@ -74,5 +75,60 @@ export const MapContainer = styled(Map)<MapProps>`
 
   .map-popup .leaflet-popup-tip-container {
     display: none;
+  }
+`
+
+export const FormContainer = styled.div`
+  border-radius: 4px;
+  background-color: var(--color-white);
+
+  width: 500px;
+
+  padding: 16px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  margin-top: 16px;
+
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+`
+
+export const InputMask = styled(IMaskInput)`
+  display: block;
+  width: 100%;
+  height: 48px;
+
+  padding: 8px;
+
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+
+  background-color: var(--color-background);
+
+  color: var(--color-text);
+  font-size: 16px;
+`
+
+export const Button = styled.button`
+  border-radius: 4px;
+  height: 48px;
+
+  padding: 8px 16px;
+
+  font-size: 16px;
+  color: var(--color-white);
+
+  border: none;
+
+  background-color: var(--color-light-blue);
+  margin-left: 8px;
+
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--color-light-blue-hover);
   }
 `

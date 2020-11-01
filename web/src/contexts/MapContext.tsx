@@ -53,6 +53,7 @@ interface MapContextProps {
   fetchtPets: () => Promise<void>;
   fetchtPet: (id: string) => Promise<void>;
   createPet: (values: PetFormValues) => Promise<boolean>;
+  getCoordinates: (cep: string) => Promise<void>;
 }
 
 const MapContext = createContext<MapContextProps>({} as MapContextProps)
@@ -72,11 +73,24 @@ export const MapProvider: React.FC = ({ children }) => {
           setCoordinates({ latitude, longitude })
           setGelocationEnabled(true)
         }, ({ code, message }) => {
-          console.log(code, message)
-          setGelocationEnabled(false)
+          const coordinates = localStorage.getItem('@mapet/coordinates')
+
+          if (coordinates) {
+            setGelocationEnabled(true)
+            setCoordinates(JSON.parse(coordinates))
+          } else {
+            setGelocationEnabled(false)
+          }
         })
       } else {
-        setGelocationEnabled(false)
+        const coordinates = localStorage.getItem('@mapet/coordinates')
+
+        if (coordinates) {
+          setGelocationEnabled(true)
+          setCoordinates(JSON.parse(coordinates))
+        } else {
+          setGelocationEnabled(false)
+        }
       }
     } catch {
       setGelocationEnabled(false)
@@ -190,6 +204,35 @@ export const MapProvider: React.FC = ({ children }) => {
     }
   }
 
+  const getCoordinates = async (cep: string): Promise<void> => {
+    try {
+      const { data } = await Api.get<MapCoordinates>(`/coordinates/${cep}`)
+
+      setCoordinates(data)
+      setGelocationEnabled(true)
+      localStorage.setItem('@mapet/coordinates', JSON.stringify(data))
+
+    } catch (error) {
+      let message = ""
+      if (error.response) {
+        setPetNotFound(error.response.status === 404)
+        message = error.response.data.message || error.response.data.error;
+      } else {
+        message = error.message
+      }
+
+      toast.warn(message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  }
+
   return (
     <MapContext.Provider value={{
       gelocationEnabled,
@@ -200,7 +243,8 @@ export const MapProvider: React.FC = ({ children }) => {
       pet,
       fetchtPets,
       fetchtPet,
-      createPet
+      createPet,
+      getCoordinates
     }}>
       {children}
     </MapContext.Provider>
