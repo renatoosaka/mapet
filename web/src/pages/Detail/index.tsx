@@ -111,7 +111,7 @@ const Detail: React.FC<DetailProps> = ({ id, toggle }) => {
           />
         </Map>
         <MapDescriptionContainer>
-          <MapDescription {...{action}}>Última localização conhecida em {lightFormat(new Date(pet.when), 'dd/MM/yyyy')}</MapDescription>
+          <MapDescription {...{action}}>Última localização conhecida em {pet.when}</MapDescription>
         </MapDescriptionContainer>
       </MapContainer>
       {pet.reward >0 && <Text>Oferecemos uma recompensa de {pet.reward.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</Text>}
