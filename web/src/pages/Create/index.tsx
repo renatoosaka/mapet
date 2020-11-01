@@ -42,7 +42,6 @@ interface CreateProps extends TypeProps {
   toggle: () => void;
 }
 
-const FILE_SIZE = 1024 * 1024
 const SUPPORTED_FORMATS = ['image/jpeg', 'image/png', 'image/x-png', 'image/gif']
 
 const schema = yup.object().shape({
@@ -58,7 +57,7 @@ const schema = yup.object().shape({
   images: yup.array(
     yup.mixed()
     .required('A file is required')
-    .test('fileSize', "File Size is too large", value => value.size <= FILE_SIZE)
+    // .test('fileSize', "File Size is too large", value => value.size <= Math.round((value.size/1024)) * 5)
     .test('fileType', "Unsupported File Format", value => SUPPORTED_FORMATS.includes(value.type))
   ).required()
 })
@@ -87,7 +86,7 @@ const Create: React.FC<CreateProps> = ({ action, toggle }) => {
 
   const errorFileMessage = (type: string) => {
     if (type === 'fileSize') {
-      return 'Imagem deve ser menor que 2MB'
+      return 'Imagem deve ser menor que 4MB'
     } else if (type === 'fileType') {
       return 'São aceitos apenas arquivos PNG ou JPG'
     } else {
