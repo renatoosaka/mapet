@@ -15,6 +15,7 @@ app.use(express.json())
 app.use(routes)
 app.use(errorHandler)
 
-app.listen(5000, () => {
-  console.log('Server running')
+const port = process.env.PORT || 500
+app.listen(port, () => {
+  console.log(`Server running :${port}`)
 })
