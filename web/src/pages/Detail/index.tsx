@@ -3,6 +3,7 @@ import { FiX } from 'react-icons/fi'
 import { FaWhatsapp } from 'react-icons/fa'
 import { Marker } from "react-leaflet"
 import { useHistory } from 'react-router-dom'
+import { lightFormat } from 'date-fns'
 
 import Map from '../../components/Map'
 
@@ -110,7 +111,7 @@ const Detail: React.FC<DetailProps> = ({ id, toggle }) => {
           />
         </Map>
         <MapDescriptionContainer>
-          <MapDescription {...{action}}>Última localização conhecida</MapDescription>
+          <MapDescription {...{action}}>Última localização conhecida em {lightFormat(new Date(pet.when), 'dd/MM/yyyy')}</MapDescription>
         </MapDescriptionContainer>
       </MapContainer>
       {pet.reward >0 && <Text>Oferecemos uma recompensa de {pet.reward.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</Text>}

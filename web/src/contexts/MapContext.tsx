@@ -30,7 +30,8 @@ export interface PetFormValues {
   pet_name?: string;
   when: string;
   detail: string;
-  contact_name?: string;
+  contact_name: string;
+  email: string;
   phone_number?: string;
   reward?: number;
   images: File[];
@@ -150,7 +151,8 @@ export const MapProvider: React.FC = ({ children }) => {
       data.append('detail', values.detail);
       data.append('when', values.when)
       data.append('pet_name', values.pet_name || '')
-      data.append('contact_name', values.contact_name || '')
+      data.append('contact_name', values.contact_name)
+      data.append('email', values.email)
       data.append('phone_number', values.phone_number || '')
       data.append('reward', String(values.reward) || '')
       data.append('action_type', values.action_type)

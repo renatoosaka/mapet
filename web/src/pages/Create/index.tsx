@@ -22,6 +22,7 @@ import {
   PetSelectionContainer,
   DivisionLine,
   Label,
+  Help,
   Input,
   InputMask,
   Textarea,
@@ -51,6 +52,8 @@ const schema = yup.object().shape({
   detail: yup.string().required('Detalhes não foram informados.').max(300, 'Máximo de 300 caracteres permitidos.'),
   when: yup.string().required('Data não foi informada.'),
   action_type: yup.mixed().oneOf(['L', 'F']),
+  contact_name: yup.string().required('Nome para contato não foi informado.'),
+  email: yup.string().required('E-mail não foi informado.').email('E-mail informado não é válido.'),
   pet_type: yup.string().required('Qual é o seu bichinho?'),
   images: yup.array(
     yup.mixed()
@@ -133,7 +136,7 @@ const Create: React.FC<CreateProps> = ({ action, toggle }) => {
 
   const onSubmit:SubmitHandler<PetFormValues> = async (values, e) => {
     e?.preventDefault()
-
+    console.log(values)
     if (await createPet(values)) {
       toggle()
     }
@@ -206,6 +209,11 @@ const Create: React.FC<CreateProps> = ({ action, toggle }) => {
           errors.images.map(error => <Error>{errorFileMessage( error ? String(error.type) : '')}</Error>)}
         <Label>Nome para contato</Label>
         <Input name='contact_name' ref={register} />
+        {errors.contact_name && <Error>{errors.contact_name.message}</Error>}
+        <Label>E-mail</Label>
+        <Input name='email' ref={register} />
+        <Help>*Fique tranquilo o e-mail será utilizado apenas para enviar novidades sobre o seu pet!</Help>
+        {errors.email && <Error>{errors.email.message}</Error>}
         <Label>Whatsapp</Label>
         <Controller
           name="phone_number"
