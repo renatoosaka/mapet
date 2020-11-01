@@ -9,7 +9,7 @@
   "scripts": {
     "build": "rimraf dist && tsc",
     "build:migration": "cross-env NODE_ENV=production node -r ts-node/register ./node_modules/typeorm/cli.js migration:run",
-    "start": "cross-env NODE_ENV=production node dist/server.js",
+    "start": "cross-env NODE_ENV=production pm2-runtime dist/server.js",
     "dev": "cross-env NODE_ENV=development ts-node-dev -r tsconfig-paths/register --respawn --transpile-only --ignore-watch node_modules --no-notify src/server.ts",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js"
   },
