@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FiChevronRight, FiPlus } from 'react-icons/fi'
 import { Marker, Popup } from "react-leaflet"
 import { useHistory, useParams } from 'react-router-dom'
+import { Helmet } from 'react-helmet'
 
 import petTitle from '../../utlis/Title'
 import { FoundMapIcon, LostMapIcon } from '../../utlis/MapIcon'
@@ -90,6 +91,9 @@ function Map() {
 
   return (
     <Container>
+      <Helmet>
+        <title>mapet</title>
+      </Helmet>
       <Sidebar />
       <MapContent>
         <MapContainer>

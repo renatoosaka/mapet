@@ -3,7 +3,7 @@ import { FiX } from 'react-icons/fi'
 import { FaWhatsapp } from 'react-icons/fa'
 import { Marker } from "react-leaflet"
 import { useHistory } from 'react-router-dom'
-import { lightFormat } from 'date-fns'
+import { Helmet } from 'react-helmet'
 
 import Map from '../../components/Map'
 
@@ -82,6 +82,24 @@ const Detail: React.FC<DetailProps> = ({ id, toggle }) => {
 
   return pet && <Container>
     <Header>
+      <Helmet>
+        <meta name="title" content="mapet — Encontrando os Amigos. Perdeu? Achou? Nós ajudamos"/>
+        <meta name="description" content={pet.detail}/>
+
+        <meta property="og:type" content="website"/>
+        <meta property="og:url" content={window.location.href}/>
+        <meta property="og:title" content={`mapet - ${pet.action_type === 'L' ? pet.pet_name : petTitle(pet.pet_type)}`}/>
+        <meta property="og:description" content={pet.detail}/>
+        <meta property="og:image" content={pet.images[0].url}/>
+
+        <meta property="twitter:card" content="summary_large_image"/>
+        <meta property="twitter:url" content={window.location.href}/>
+        <meta property="twitter:title" content={`mapet - ${pet.action_type === 'L' ? pet.pet_name : petTitle(pet.pet_type)}`}/>
+        <meta property="twitter:description" content={pet.detail}/>
+        <meta property="twitter:image" content={pet.images[0].url}/>
+
+        <title>mapet - {pet.action_type === 'L' ? pet.pet_name : petTitle(pet.pet_type)}</title>
+      </Helmet>
       <CloseButton onClick={toggle}>
         <FiX />
       </CloseButton>
