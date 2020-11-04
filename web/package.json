@@ -18,6 +18,7 @@
     "leaflet": "^1.7.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-helmet": "^6.1.0",
     "react-hook-form": "^6.9.6",
     "react-icons": "^3.11.0",
     "react-imask": "^6.0.5",
@@ -53,6 +54,7 @@
   "devDependencies": {
     "@types/axios": "^0.14.0",
     "@types/date-fns": "^2.6.0",
+    "@types/react-helmet": "^6.1.0",
     "@types/react-icons": "^3.0.0",
     "@types/react-leaflet": "^2.5.2",
     "@types/react-router-dom": "^5.1.6",
