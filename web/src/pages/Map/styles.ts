@@ -5,6 +5,7 @@ export const Container = styled.div`
   position: relative;
 
   width: 100vw;
+
   height: 100%;
   min-height: 100vh;
 
@@ -14,14 +15,18 @@ export const Container = styled.div`
 export const MapContent = styled.div`
   margin-left: 100px;
   width: calc(100% - 100px);
-  height: 100%;
   min-height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   @media only screen and (${Devices.tablet}) {
     margin-left: 0;
-    margin-top: 76px;
+    margin-top: 60px;
 
     width: 100%;
+    min-height: calc(100vh - 60px);
   }
 `
 

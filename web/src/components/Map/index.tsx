@@ -83,7 +83,7 @@ const Map: React.FC<MapProps> = ({ mapCenter, onMapClick, children }) => {
           </FormContainer>
           {cepCoordinates.length > 0 && (
           <ResultContainer>
-            {cepCoordinates.map(data => <ResultItem onClick={() => handleSelectCoordinates({latitude: data.latitude, longitude: data.longitude})}>{data.formattedAddress}</ResultItem>)}
+            {cepCoordinates.map(data => <ResultItem key={data.latitude} onClick={() => handleSelectCoordinates({latitude: data.latitude, longitude: data.longitude})}>{data.formattedAddress}</ResultItem>)}
           </ResultContainer>
           )}
         </WrapperContainer>
