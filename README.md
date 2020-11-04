@@ -6,7 +6,7 @@
 Um aplicativo que lhe ajudará a encontrar seu pet perdido.
 
 ## Motivação
-Com o intuito de aprendizagem da stack javascript atráves das tecnologias Node.js e ReactJS resolvi desenvolver o Mapet.
+Inspirado no aplicativo **Happy** desenvolvido durante a [NLW3](https://nextlevelweek.com/) da [Rocketseat](https://rocketseat.com.br/) e com o objetivo de fixar o conhecimento adquirido e buscar novos desafios na stack de desenvolvimento utilizada [Node.js](https://nodejs.org/en/), [ReactJS](https://pt-br.reactjs.org/) e [React-Native](https://reactnative.dev/) resolvi desenvolver o Mapet.
 
 Muitas pessoas tem bichinhos de estimação, entre eles os mais comuns são gatos e cachorros. Com a correria do dia a dia pode acontecer deles acabarem escapando, e ai aonde divulgar para ajudarem a encontrá-lo o mais rápido possível? Redes Sociais? WhatsApp?
 Pensando nisso criamos o mapet, um mapa que você indica aonde seu pet foi visto pela última vez, características, fotos e até oferecer uma recompensa.
@@ -39,7 +39,7 @@ Assim centralizamos todas as informações em um único lugar.
 - [React Hook Form](https://react-hook-form.com/)
 
 ## Futuro
-Futuramente irei desenvolver a applicativo para celulares utilizando [react-native](https://reactnative.dev/)
+Futuramente irei desenvolver a applicativo para celulares utilizando [React-Native](https://reactnative.dev/)
 
 
 ## Créditos
