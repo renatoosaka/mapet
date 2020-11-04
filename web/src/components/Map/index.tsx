@@ -7,14 +7,19 @@ import { useMap } from '../../contexts/MapContext'
 import MapLoadingSVG from '../../assets/map-loading.svg'
 import LocationDisabledSVG from '../../assets/location-disabled.svg'
 
+import LoadingSpinner from '../LoadingSpinner'
+
 import {
   Container,
   Image,
   Message,
   MapContainer,
+  WrapperContainer,
   FormContainer,
   InputMask,
-  Button
+  Button,
+  ResultContainer,
+  ResultItem
 } from './styles'
 
 export interface MapCoordinates {
@@ -29,7 +34,7 @@ interface MapProps {
 const Map: React.FC<MapProps> = ({ mapCenter, onMapClick, children }) => {
   const [cep, setCep] = useState('')
 
-  const { gelocationEnabled, coordinates, getCoordinates } = useMap()
+  const { gelocationEnabled, coordinates, getCoordinates, cepCoordinates, setCepSelectedCoordinates, loading } = useMap()
 
   const handleMapClick = (event: LeafletMouseEvent) => {
     const { lat, lng } = event.latlng;
@@ -42,6 +47,10 @@ const Map: React.FC<MapProps> = ({ mapCenter, onMapClick, children }) => {
 
   const handleGetCoordinates = async () => {
     await getCoordinates(cep)
+  }
+
+  const handleSelectCoordinates = (coordinates: MapCoordinates) => {
+    setCepSelectedCoordinates(coordinates)
   }
 
   if (coordinates.latitude === 0 && gelocationEnabled) {
@@ -60,14 +69,24 @@ const Map: React.FC<MapProps> = ({ mapCenter, onMapClick, children }) => {
         <Message style={{ color: 'var(--color-red)', fontWeight: 800 }}>Ouch!!</Message>
         <Message style={{ margin: 0, fontSize: 18 }}>Não foi possível identificar sua localização</Message>
         <Message style={{ margin: 0, fontSize: 18 }}>Por favor informe seu CEP para continuarmos</Message>
-        <FormContainer>
-          <InputMask
-            mask={'00000-000'}
-            placeholder='Informe o seu CEP'
-            onAccept={(value: string, _: any) => setCep(value)}
-            autoFocus />
-          <Button type="button" onClick={handleGetCoordinates}>Continuar</Button>
-        </FormContainer>
+        <WrapperContainer>
+          <FormContainer>
+            <InputMask
+              mask={'00000-000'}
+              placeholder='Informe o seu CEP'
+              onAccept={(value: string, _: any) => setCep(value)}
+              autoFocus />
+            <Button type="button" onClick={handleGetCoordinates} disabled={loading}>
+              {loading && <LoadingSpinner />}
+              Continuar
+            </Button>
+          </FormContainer>
+          {cepCoordinates.length > 0 && (
+          <ResultContainer>
+            {cepCoordinates.map(data => <ResultItem onClick={() => handleSelectCoordinates({latitude: data.latitude, longitude: data.longitude})}>{data.formattedAddress}</ResultItem>)}
+          </ResultContainer>
+          )}
+        </WrapperContainer>
       </Container>
     )
 

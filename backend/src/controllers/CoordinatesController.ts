@@ -14,38 +14,37 @@ export default {
 
     const data = await geoCoder.geocode(`${address.street}, ${address.city}, ${address.state}`)
 
-    console.log(address, data)
     if (data.length === 0) {
       return response.status(400).json({
         message: 'Não foi possível encontrar sua localização'
       })
     }
 
-    let location = {
-      latitude: 0,
-      longitude: 0
-    }
+    // let location = {
+    //   latitude: 0,
+    //   longitude: 0
+    // }
 
-    if (data.length === 1) {
-      location = {
-        latitude: data[0].latitude,
-        longitude: data[0].longitude
-      }
-    } else {
-      const locationIndex = data.findIndex(geo => geo.city.toLocaleLowerCase() === address.city.toLocaleLowerCase())
+    // if (data.length === 1) {
+    //   location = {
+    //     latitude: data[0].latitude,
+    //     longitude: data[0].longitude
+    //   }
+    // } else {
+    //   const locationIndex = data.findIndex(geo => geo.city.toLocaleLowerCase() === address.city.toLocaleLowerCase())
 
-      if (locationIndex < 0) {
-        return response.status(400).json({
-          message: 'Não foi possível encontrar sua localização'
-        })
-      }
+    //   if (locationIndex < 0) {
+    //     return response.status(400).json({
+    //       message: 'Não foi possível encontrar sua localização'
+    //     })
+    //   }
 
-      location = {
-        latitude: data[locationIndex].latitude,
-        longitude: data[locationIndex].longitude
-      }
-    }
+    //   location = {
+    //     latitude: data[locationIndex].latitude,
+    //     longitude: data[locationIndex].longitude
+    //   }
+    // }
 
-    return response.json(location)
+    return response.json(data)
   }
 }

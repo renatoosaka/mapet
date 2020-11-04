@@ -56,7 +56,7 @@ function Map() {
         pathname: '/pets'
       })
     }
-  }, [isShowingDetail])
+  }, [isShowingDetail, history])
 
   useEffect(() => {
     if (petParam) {
@@ -68,8 +68,6 @@ function Map() {
         setID(id)
         toggleDetail()
       }
-
-      console.log(id)
     }
   }, [petParam])
 

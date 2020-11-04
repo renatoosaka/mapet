@@ -2,11 +2,13 @@ import styled from 'styled-components'
 import { IMaskInput } from 'react-imask'
 
 import { Map, MapProps } from "react-leaflet";
+import Devices from '../../styles/Devices';
 
 export const Container = styled.div`
   position: relative;
   width: 100%;
   height: 100%;
+  min-height: 100vh;
 
   display: flex;
   justify-content: center;
@@ -78,7 +80,7 @@ export const MapContainer = styled(Map)<MapProps>`
   }
 `
 
-export const FormContainer = styled.div`
+export const WrapperContainer = styled.div`
   border-radius: 4px;
   background-color: var(--color-white);
 
@@ -86,14 +88,26 @@ export const FormContainer = styled.div`
 
   padding: 16px;
 
+  margin-top: 16px;
+
+  margin-bottom: 16px;
+
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+
+  @media only screen and (${Devices.mobileL}) {
+    width: 400px;
+  }
+
+  @media only screen and (${Devices.mobileM}) {
+    width: 350px;
+  }
+`
+
+export const FormContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-
-  margin-top: 16px;
-
-  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
 `
 
 export const InputMask = styled(IMaskInput)`
@@ -126,9 +140,41 @@ export const Button = styled.button`
   background-color: var(--color-light-blue);
   margin-left: 8px;
 
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
   cursor: pointer;
 
   &:hover {
     background-color: var(--color-light-blue-hover);
+  }
+`
+
+export const ResultContainer = styled.div`
+  width: 100%;
+
+  margin-top: 16px;
+`
+
+export const ResultItem = styled.div`
+  border-bottom: 1px solid var(--color-border);
+
+  padding-bottom: 8px;
+
+  margin-bottom: 8px;
+
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--color-background);
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+
+    padding-bottom: 0;
+
+    border: none;
   }
 `

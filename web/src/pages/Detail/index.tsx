@@ -70,7 +70,7 @@ const Detail: React.FC<DetailProps> = ({ id, toggle }) => {
         })
       }
     }
-  }, [pet])
+  }, [pet, history])
 
   if (!pet && !petNotFound) {
     return <Shimmer toggle={toggle} />
