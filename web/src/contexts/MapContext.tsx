@@ -43,10 +43,15 @@ interface MapCoordinates {
   longitude: number;
 }
 
+interface CEPCoordinates extends MapCoordinates {
+  formattedAddress: string;
+}
+
 interface MapContextProps {
   gelocationEnabled: boolean;
   loading: boolean;
   coordinates: MapCoordinates;
+  cepCoordinates: Array<CEPCoordinates>;
   petNotFound: boolean;
   pets: PetProps[];
   pet: PetProps | null;
@@ -54,6 +59,7 @@ interface MapContextProps {
   fetchtPet: (id: string) => Promise<void>;
   createPet: (values: PetFormValues) => Promise<boolean>;
   getCoordinates: (cep: string) => Promise<void>;
+  setCepSelectedCoordinates: (coordinates: MapCoordinates) => void;
 }
 
 const MapContext = createContext<MapContextProps>({} as MapContextProps)
@@ -65,6 +71,7 @@ export const MapProvider: React.FC = ({ children }) => {
   const [petNotFound, setPetNotFound] = useState(false)
   const [pets, setPets] = useState<Array<PetProps>>([])
   const [pet, setPet] = useState<PetProps | null>(null)
+  const [cepCoordinates, setCepCoordinates] = useState<Array<CEPCoordinates>>([])
 
   useEffect(() => {
     try {
@@ -206,12 +213,11 @@ export const MapProvider: React.FC = ({ children }) => {
 
   const getCoordinates = async (cep: string): Promise<void> => {
     try {
-      const { data } = await Api.get<MapCoordinates>(`/coordinates/${cep}`)
+      setLoading(true)
 
-      setCoordinates(data)
-      setGelocationEnabled(true)
-      localStorage.setItem('@mapet/coordinates', JSON.stringify(data))
+      const { data } = await Api.get<Array<CEPCoordinates>>(`/coordinates/${cep}`)
 
+      setCepCoordinates(data)
     } catch (error) {
       let message = ""
       if (error.response) {
@@ -230,7 +236,15 @@ export const MapProvider: React.FC = ({ children }) => {
         draggable: true,
         progress: undefined,
       });
+    } finally {
+      setLoading(false)
     }
+  }
+
+  const setCepSelectedCoordinates = (coordinates: MapCoordinates) => {
+    setCoordinates(coordinates)
+    setGelocationEnabled(true)
+    localStorage.setItem('@mapet/coordinates', JSON.stringify(coordinates))
   }
 
   return (
@@ -238,13 +252,15 @@ export const MapProvider: React.FC = ({ children }) => {
       gelocationEnabled,
       loading,
       coordinates,
+      cepCoordinates,
       petNotFound,
       pets,
       pet,
       fetchtPets,
       fetchtPet,
       createPet,
-      getCoordinates
+      getCoordinates,
+      setCepSelectedCoordinates
     }}>
       {children}
     </MapContext.Provider>
