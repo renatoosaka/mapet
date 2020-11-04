@@ -42,7 +42,7 @@ Assim centralizamos todas as informações em um único lugar.
 Futuramente irei desenvolver a applicativo para celulares utilizando [react-native](https://reactnative.dev/)
 
 
-## Creditos
+## Créditos
 O projeto está aberto para quem quiser usar como referência ou consulta, mas está proibida a comercialização ou qualquer tipo de arrecadação monetária. 
 
 Developed with love © [Renato](https://github.com/renatoosaka/)
