@@ -83,8 +83,14 @@ const Detail: React.FC<DetailProps> = ({ id, toggle }) => {
   return pet && <Container>
     <Header>
       <Helmet>
-        <meta name="title" content="mapet — Encontrando os Amigos. Perdeu? Achou? Nós ajudamos"/>
+        <title>mapet - {pet.action_type === 'L' ? pet.pet_name : petTitle(pet.pet_type)}</title>
+
+        <meta name="title" content={`mapet - ${pet.action_type === 'L' ? pet.pet_name : petTitle(pet.pet_type)}`}/>
         <meta name="description" content={pet.detail}/>
+
+        <meta itemProp="name" content={`mapet - ${pet.action_type === 'L' ? pet.pet_name : petTitle(pet.pet_type)}`} />
+        <meta itemProp="description" content={pet.detail} />
+        <meta itemProp="image" content={pet.images[0].url} />
 
         <meta property="og:type" content="website"/>
         <meta property="og:url" content={window.location.href}/>
@@ -97,8 +103,6 @@ const Detail: React.FC<DetailProps> = ({ id, toggle }) => {
         <meta property="twitter:title" content={`mapet - ${pet.action_type === 'L' ? pet.pet_name : petTitle(pet.pet_type)}`}/>
         <meta property="twitter:description" content={pet.detail}/>
         <meta property="twitter:image" content={pet.images[0].url}/>
-
-        <title>mapet - {pet.action_type === 'L' ? pet.pet_name : petTitle(pet.pet_type)}</title>
       </Helmet>
       <CloseButton onClick={toggle}>
         <FiX />
