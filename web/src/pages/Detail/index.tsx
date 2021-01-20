@@ -48,7 +48,7 @@ const Detail: React.FC<DetailProps> = ({ id, toggle }) => {
 
   useEffect(() => {
     fetchtPet(id)
-  }, [id, fetchtPet])
+  }, [id])// eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if(pet) {

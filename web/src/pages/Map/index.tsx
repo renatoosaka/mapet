@@ -69,13 +69,13 @@ function Map() {
         toggleDetail()
       }
     }
-  }, [petParam, isShowingDetail, toggleDetail])
+  }, [petParam])// eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (coordinates.latitude !== 0 && gelocationEnabled) {
       fetchtPets()
     }
-  }, [coordinates, gelocationEnabled, fetchtPets])
+  }, [coordinates, gelocationEnabled])// eslint-disable-line react-hooks/exhaustive-deps
 
   const handleOnClickAdd = (action: ActionProps) => {
     setAction(action)
