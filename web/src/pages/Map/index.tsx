@@ -56,7 +56,7 @@ function Map() {
         pathname: '/pets'
       })
     }
-  }, [isShowingDetail, history])
+  }, [])// eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (petParam) {
@@ -69,7 +69,7 @@ function Map() {
         toggleDetail()
       }
     }
-  }, [petParam])// eslint-disable-line react-hooks/exhaustive-deps
+  }, [])// eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (coordinates.latitude !== 0 && gelocationEnabled) {
