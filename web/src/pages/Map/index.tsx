@@ -69,13 +69,13 @@ function Map() {
         toggleDetail()
       }
     }
-  }, [petParam])
+  }, [petParam, isShowingDetail, toggleDetail])
 
   useEffect(() => {
     if (coordinates.latitude !== 0 && gelocationEnabled) {
       fetchtPets()
     }
-  }, [coordinates, gelocationEnabled])
+  }, [coordinates, gelocationEnabled, fetchtPets])
 
   const handleOnClickAdd = (action: ActionProps) => {
     setAction(action)

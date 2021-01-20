@@ -48,7 +48,7 @@ const Detail: React.FC<DetailProps> = ({ id, toggle }) => {
 
   useEffect(() => {
     fetchtPet(id)
-  }, [id])
+  }, [id, fetchtPet])
 
   useEffect(() => {
     if(pet) {
